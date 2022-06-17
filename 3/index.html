@@ -1,0 +1,83 @@
+<html>
+	<script>
+		function arredondar (valor) {
+			return Math.round(valor*100)/100
+		}
+
+		function calcularJuros (valor) {
+			juros = arredondar(valor * 0.1)
+			return juros
+		}
+		
+		function calcularRendimentos (valor) {
+			rendimentos = arredondar(valor * 0.005)
+			console.log(rendimentos)
+			return rendimentos
+		}
+
+		function calcularSaldo (mes, saldoInicial, lancamentos) {
+			console.log(mes)
+			saldo = saldoInicial
+			for (lancamento of lancamentos) {
+				if (lancamento.tipo === "receita") {
+					saldo += lancamento.valor
+				}
+				if (lancamento.tipo === "despesa") {
+					saldo -= lancamento.valor
+				}
+			}
+			estaNegativo = saldo < 0
+			if (estaNegativo) {
+				juros = calcularJuros(saldo)
+				saldo = arredondar(saldo + juros)
+			} else {
+				rendimentos = calcularRendimentos(saldo)
+				saldo = arredondar(saldo + rendimentos)
+			}
+			return saldo
+		}
+		saldoInicial = 0
+		lancamentosJaneiro = [
+			{ categoria: "Salário", tipo: "receita", valor: 3000 },
+			{ categoria: "Aluguel", tipo: "despesa", valor: 1000 },
+			{ categoria: "Conta de Luz", tipo: "despesa", valor: 200 },
+			{ categoria: "Conta de Água", tipo: "despesa", valor: 100 },
+			{ categoria: "Internet", tipo: "despesa", valor: 100 },
+			{ categoria: "Transporte", tipo: "despesa", valor: 300 },
+			{ categoria: "Lazer", tipo: "despesa", valor: 300 },
+			{ categoria: "Alimentação", tipo: "despesa", valor: 500 },
+			{ categoria: "Condomínio", tipo: "despesa", valor: 300 },
+			{ categoria: "Farmácia", tipo: "despesa", valor: 100 }
+		]
+		saldo1 = calcularSaldo("janeiro", saldoInicial, lancamentosJaneiro)
+		console.log(saldo1)
+		lancamentosFevereiro = [
+			{ categoria: "Salário", tipo: "receita", valor: 3000 },
+			{ categoria: "Aluguel", tipo: "despesa", valor: 1200 },
+			{ categoria: "Conta de Luz", tipo: "despesa", valor: 250 },
+			{ categoria: "Conta de Água", tipo: "despesa", valor: 100 },
+			{ categoria: "Internet", tipo: "despesa", valor: 100 },
+			{ categoria: "Transporte", tipo: "despesa", valor: 500 },
+			{ categoria: "Alimentação", tipo: "despesa", valor: 1000 },
+			{ categoria: "Condomínio", tipo: "despesa", valor: 400 }
+		]
+		saldo2 = calcularSaldo("fevereiro", saldo1, lancamentosFevereiro)
+		console.log(saldo2)
+		lancamentosMarco = [
+			{ categoria: "Salário", tipo: "receita", valor: 4000 }, 
+			{ categoria: "Aluguel", tipo: "despesa", valor: 1200 }, 
+			{ categoria: "Conta de Luz", tipo: "despesa", valor: 200 }, 
+			{ categoria: "Conta de Água", tipo: "despesa", valor: 100 }, 
+			{ categoria: "Internet", tipo: "despesa", valor: 200 }, 
+			{ categoria: "Transporte", tipo: "despesa", valor: 500 }, 
+			{ categoria: "Lazer", tipo: "despesa", valor: 800 }, 
+			{ categoria: "Alimentação", tipo: "despesa", valor: 1000 }, 
+			{ categoria: "Condomínio", tipo: "despesa", valor: 400 }
+		]
+		saldo3 = calcularSaldo("marco", saldo2, lancamentosMarco)
+		console.log(saldo3)
+		acumuladoAno = saldo3
+		console.log("ano")
+		console.log(acumuladoAno)
+	</script>
+</html>
